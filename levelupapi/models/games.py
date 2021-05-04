@@ -7,5 +7,5 @@ from django.db.models.fields import CharField
 class Game(models.Model):
 
     user = models.ForeignKey(User, on_delete=CASCADE)
-    name = CharField(max_length=50)
+    label = CharField(max_length=50)
     game_type = models.ForeignKey("Game_Type", on_delete=CASCADE)
