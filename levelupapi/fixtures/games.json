@@ -1,0 +1,11 @@
+[
+    {
+        "model": "levelupapi.games",
+        "pk": 1,
+        "fields": {
+            "user": "",
+            "label": "",
+            "game_type": ""
+        }
+    }
+]

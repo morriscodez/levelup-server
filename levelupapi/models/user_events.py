@@ -4,5 +4,5 @@ from django.contrib.auth.models import User
 
 class User_Event(models.Model):
 
-    event = models.ForeignKey("Event", on_delete=CASCADE)
-    user = models.ForeignKey(User, on_delete=CASCADE)
+    event = models.ForeignKey("Event", on_delete=models.CASCADE)
+    gamer = models.ForeignKey("Gamer", on_delete=models.CASCADE)
