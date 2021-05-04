@@ -1,11 +1,23 @@
 [
     {
-        "model": "levelupapi.games",
+        "model": "levelupapi.game",
         "pk": 1,
         "fields": {
-            "user": "",
-            "label": "",
-            "game_type": ""
+            "user": 1,
+            "label": "Ticket To Ride",
+            "game_type": 1,
+            "number_of_players": 6,
+            "skill_level": 3
+        },
+    {
+        "model": "levelupapi.game",
+        "pk": 1,
+        "fields": {
+            "user": 1,
+            "label": "Dungeons & Dragons",
+            "game_type": 2,
+            "number_of_players": 5,
+            "skill_level": 3
         }
     }
 ]
