@@ -12,7 +12,7 @@
     },
     {
         "model": "levelupapi.game",
-        "pk": 1,
+        "pk": 2,
         "fields": {
             "user": 1,
             "label": "Dungeons & Drag-Queens",
