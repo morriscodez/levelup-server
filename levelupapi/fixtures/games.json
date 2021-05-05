@@ -1,0 +1,22 @@
+[
+    {
+        "model": "levelupapi.game",
+        "pk": 1,
+        "fields": {
+            "label": "Ticket To Ride",
+            "game_type": 1,
+            "number_of_players": 6,
+            "skill_level": 3
+        }
+    },
+    {
+        "model": "levelupapi.game",
+        "pk": 2,
+        "fields": {
+            "label": "Dungeons & Drag-Queens",
+            "game_type": 2,
+            "number_of_players": 10,
+            "skill_level": 10
+        }
+    }
+]

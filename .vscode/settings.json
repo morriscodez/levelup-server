@@ -1,4 +1,15 @@
 {
     "python.pythonPath": "/Users/DylanMorris/.local/share/virtualenvs/levelup-iNUnWhtG/bin/python",
-    "python.linting.pylintEnabled": true
+    "python.linting.pylintEnabled": true,
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "levelup",
+            "database": "db.sqlite3"
+        }
+    ],
+    "python.linting.pylintArgs": [
+        "--django-settings-module=levelup.settings",
+    ]
 }
