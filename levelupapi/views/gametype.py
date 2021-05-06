@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework import serializers
 from levelupapi.models import Game_Type
 
-class Game_Types(ViewSet):
+class GameTypes(ViewSet):
     #levelup game types
     def retrieve(self, request, pk=None):
         #Handle GET request for single game type
