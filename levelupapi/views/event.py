@@ -53,4 +53,23 @@ class EventView(ViewSet):
         except Exception as ex:
             return Response({'message': ex.args[0]}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-    
+    def list(self, request):
+
+        events = Event.objects.all()
+
+        game = self.request.query_params.get('game', None)
+        if game is not None:
+            events.filter(game__id=game)
+
+        serializer = EventSerializer(
+            events, many=True, context={'request': request}
+        )
+        return Response(serializer.data)
+
+
+        
+class EventSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Event
+        fields = ('id', 'name', 'description', 'address', 'game')
+        depth = 1
