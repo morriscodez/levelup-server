@@ -46,7 +46,7 @@ class Games(ViewSet):
 
         return Response({}, status=status.HTTP_204_NO_CONTENT)
 
-    def destroy(Self, request, pk=None):
+    def destroy(self, request, pk=None):
 
         try:
             game = Game.objects.get(pk=pk)
@@ -76,7 +76,7 @@ class Games(ViewSet):
 class GameSerializer(serializers.ModelSerializer):
     class Meta:
         model = Game
-        fields = ('id', 'label', 'number_of_players', 'skill_level')
+        fields = ('id', 'label', 'number_of_players', 'skill_level', 'game_type')
         depth = 1
 
         
