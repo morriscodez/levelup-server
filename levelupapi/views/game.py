@@ -46,7 +46,7 @@ class Games(ViewSet):
 
         return Response({}, status=status.HTTP_204_NO_CONTENT)
 
-    def destroy(Self, request, pk=None):
+    def destroy(self, request, pk=None):
 
         try:
             game = Game.objects.get(pk=pk)
