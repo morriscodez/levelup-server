@@ -8,7 +8,7 @@ from rest_framework import serializers
 from rest_framework import status
 from levelupapi.models import Game, Game_Type, Gamer, game_type
 
-class Game(ViewSet):
+class Games(ViewSet):
 
     def create(self, request):
 
@@ -30,7 +30,6 @@ class Game(ViewSet):
         except ValidationError as ex:
             return Response({"reason": ex.message}, status=status.HTTP_400_BAD_REQUEST)
 
-    #TODO build
     def retrieve(self, request, pk=None):
         
         gamer = Gamer.objects.get(user=request.auth.user)
@@ -69,7 +68,15 @@ class Game(ViewSet):
         if game_type is not None:
             games = games.filter(game_type__id=game_type)
 
-            serializer = GameSerializer(
-                games, many=True, context={'request': request}
-            )
-            return Response(serializer.data)
+        serializer = GameSerializer(
+            games, many=True, context={'request': request}
+        )
+        return Response(serializer.data)
+
+class GameSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Game
+        fields = ('id', 'label', 'number_of_players', 'skill_level')
+        depth = 1
+
+        
