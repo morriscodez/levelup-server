@@ -32,8 +32,12 @@ class EventView(ViewSet):
 
     def retrieve(self, request, pk=None):
 
-
-        return Response({}, status=status.HTTP_204_NO_CONTENT)
+        try:
+            event = Event.objects.get(pk=pk)
+            serializer = EventSerializer(event, context={'request': request})
+            return Response(serializer.data)
+        except Exception as ex:
+            return HttpResponseServerError(ex)
 
     def destroy(self, request, pk):
 
@@ -80,23 +84,28 @@ class EventView(ViewSet):
 
 
         
-class EventSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Event
-        fields = ('id', 'name', 'time', 'date', 'description', 'address', 'game', 'organizer')
         
 class EventUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields ['first_name', 'last_name', 'email']
+        fields = ['first_name', 'last_name', 'email']
 
 class EventGamerSerializer(serializers.ModelSerializer):
     user = EventUserSerializer(many=False)
 
     class Meta:
-        model = Gamerfields = ['user']
+        model = Gamer
+        fields = ['user']
 
 class GameSerializer(serializers.ModelSerializer):
     class Meta:
         model = Game
         fields = ('id', 'label', 'number_of_players', 'skill_level')
+
+class EventSerializer(serializers.ModelSerializer):
+    organizer = EventGamerSerializer(many=False)
+    game = GameSerializer(many=False)
+    
+    class Meta:
+        model = Event
+        fields = ('id', 'name', 'time', 'date', 'description', 'address', 'game', 'organizer')
