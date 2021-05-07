@@ -26,7 +26,7 @@ class GameTypes(ViewSet):
 
         gametypes = Game_Type.objects.all()
         serializer = GameTypeSerializer(
-            gametypes, many=true, context={'request': request}
+            gametypes, many=True, context={'request': request}
         )
         return Response(serializer.data)
 
