@@ -47,7 +47,7 @@
             "description": "Board game night at my house. We're playing a game about trains. Bring me cat toys",
             "date": "2021-05-15",
             "address": "59 Feline Dr",
-            "game": 1,
+            "game": 4,
             "time": "8:00"
         }
     },
@@ -60,7 +60,7 @@
             "description": "I never thought I'd try these role-playing games but let's see what all the fuss is about",
             "date": "2021-05-20",
             "address": "59 Feline Dr",
-            "game": 1,
+            "game": 5,
             "time": "8:00"
         }
     }
