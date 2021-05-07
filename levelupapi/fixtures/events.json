@@ -3,22 +3,65 @@
         "model": "levelupapi.event",
         "pk": 1,
         "fields": {
-            "name": "Chattanooga Choo Choo",
-            "description": "Board game night at my house. We're playing a game about trains. Bring me cat toys",
-            "date": "2021-05-15",
-            "address": "59 Feline Dr",
-            "game": 1
+            "organizer": 1,
+            "name": "board game beatdown",
+            "description": "Welcome To at lunch",
+            "game": 1,
+            "date": "2021-10-04",
+            "address":"59 Feline Dr",
+            "time": "12:00"
         }
     },
     {
         "model": "levelupapi.event",
         "pk": 2,
         "fields": {
+            "organizer": 1,
+            "name": "flight club",
+            "description": "Friday night Settlers and drinks",
+            "game": 2,
+            "date": "2021-08-14",
+            "address":"59 Feline Dr",
+            "time": "19:30"
+        }
+    },
+    {
+        "model": "levelupapi.event",
+        "pk": 3,
+        "fields": {
+            "organizer": 1,
+            "name": "DND",
+            "description": "Vale of the Frost King campaign. All weekend.",
+            "game": 3,
+            "date": "2021-04-20",
+            "address":"59 Feline Dr",
+            "time": "8:00"
+        }
+    },
+    {
+        "model": "levelupapi.event",
+        "pk": 4,
+        "fields": {
+            "organizer": 1,
+            "name": "Chattanooga Choo Choo",
+            "description": "Board game night at my house. We're playing a game about trains. Bring me cat toys",
+            "date": "2021-05-15",
+            "address": "59 Feline Dr",
+            "game": 1,
+            "time": "8:00"
+        }
+    },
+    {
+        "model": "levelupapi.event",
+        "pk": 5,
+        "fields": {
+            "organizer": 1,
             "name": "Girl's Night",
             "description": "I never thought I'd try these role-playing games but let's see what all the fuss is about",
             "date": "2021-05-20",
             "address": "59 Feline Dr",
-            "game": 1
+            "game": 1,
+            "time": "8:00"
         }
     }
 ]
