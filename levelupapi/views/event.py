@@ -83,6 +83,56 @@ class EventView(ViewSet):
         return Response(serializer.data)
 
 
+    @action(methods=['post', 'delete'], detail=True)
+    def signup(self, request, pk=None):
+
+        if request.method == "POST":
+            event = Event.objects.get(pk=pk)
+
+            gamer= Gamer.objects.get(user=request.auth.user)
+
+            try:
+                registration = EventGamers.objects.get(
+                    event=event, gamer=gamer)
+                return Response(
+                    {'message': 'Gamer already signed up for this event.'},
+                    status=status.HTTP_422_UNPROCESSABLE_ENTITY
+                )    
+            except EventGamers.DoesNotExist:
+                registration = EventGamers()
+                registration.event = event
+                registration.gamer = gamer
+                registration.save()
+
+                return Response({}, status=status.HTTP_201_CREATED)
+
+        elif request.method == "DELETE":
+
+            try:
+                event = Event.objects.get(pk=pk)
+            except Event.DoesNotExist:
+                return Response(
+                    {'message': 'Event does not exist.'},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+
+            gamer = Gamer.objects.get(user=request.auth.user)
+
+            try:
+                registration = EventGamers.objects.get(
+                    event=event,gamer=gamer)
+                registration.delete()
+                return Response(None, status=status.HTTP_204_NO_CONTENT)
+
+            Except EventGamers.DoesNotExist:
+                return Response(
+                    {'message': 'Not currently registered for event.'},
+                    status=status.HTTP_404_NOT_FOUND
+                )
+
+            return Response({}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+
         
         
 class EventUserSerializer(serializers.ModelSerializer):
