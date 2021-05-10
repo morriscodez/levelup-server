@@ -8,6 +8,7 @@ from rest_framework import serializers
 from rest_framework import status
 from levelupapi.models import Event, Game, Gamer, User_Event
 from django.contrib.auth.models import User
+from rest_framework.decorators import action
 
 class EventView(ViewSet):
     def create(self, request):
