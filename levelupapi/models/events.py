@@ -17,4 +17,6 @@ class Event(models.Model):
     def joined(self):
         return self.__joined
 
-    
+    @joined.setter
+    def joined(self, value):
+        self.__joined = value
