@@ -71,10 +71,25 @@ class EventView(ViewSet):
 
 
     def list(self, request):
+        """Handle GET requests to events resource
 
+            Returns:
+                Response -- JSON serialized list of events
+        """
+        gamer = Gamer.objects.get(user=request.auth.user)
         events = Event.objects.all()
 
-        game = self.request.query_params.get('game', None)
+        for event in events:
+            event.joined = None
+
+            try:
+                User_Event.objects.get(event=event, gamer=gamer)
+                event.joined = True
+            except User_Event.DoesNotExist:
+                event.joined = False
+
+
+        game = self.request.query_params.get('gameId', None)
         if game is not None:
             events.filter(game__id=game)
 
@@ -159,4 +174,4 @@ class EventSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Event
-        fields = ('id', 'name', 'time', 'date', 'description', 'address', 'game', 'organizer')
+        fields = ('id', 'name', 'time', 'date', 'description', 'address', 'game', 'organizer', 'joined')
