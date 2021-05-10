@@ -6,7 +6,7 @@ from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers
 from rest_framework import status
-from levelupapi.models import Event, Game, Gamer
+from levelupapi.models import Event, Game, Gamer, User_Event
 from django.contrib.auth.models import User
 
 class EventView(ViewSet):
@@ -92,14 +92,14 @@ class EventView(ViewSet):
             gamer= Gamer.objects.get(user=request.auth.user)
 
             try:
-                registration = EventGamers.objects.get(
+                registration = User_Event.objects.get(
                     event=event, gamer=gamer)
                 return Response(
                     {'message': 'Gamer already signed up for this event.'},
                     status=status.HTTP_422_UNPROCESSABLE_ENTITY
                 )    
-            except EventGamers.DoesNotExist:
-                registration = EventGamers()
+            except User_Event.DoesNotExist:
+                registration = User_Event()
                 registration.event = event
                 registration.gamer = gamer
                 registration.save()
@@ -119,18 +119,18 @@ class EventView(ViewSet):
             gamer = Gamer.objects.get(user=request.auth.user)
 
             try:
-                registration = EventGamers.objects.get(
-                    event=event,gamer=gamer)
+                registration = User_Event.objects.get(
+                    event=event, gamer=gamer)
                 registration.delete()
                 return Response(None, status=status.HTTP_204_NO_CONTENT)
 
-            Except EventGamers.DoesNotExist:
+            except User_Event.DoesNotExist:
                 return Response(
                     {'message': 'Not currently registered for event.'},
                     status=status.HTTP_404_NOT_FOUND
                 )
 
-            return Response({}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+        return Response({}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
         
