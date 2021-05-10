@@ -13,4 +13,8 @@ class Event(models.Model):
     attendees = models.ManyToManyField("Gamer", through="User_Event", related_name="attending")
     time = models.TimeField()
 
+    @property
+    def joined(self):
+        return self.__joined
+
     
