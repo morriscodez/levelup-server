@@ -34,4 +34,28 @@ class Profile(ViewSet):
 
 class UserSerializer(serializer.ModelSerializer):
     """JSON serializer for gamer's related Django user"""
-    
+    class Meta:
+        model = Userfields = ('first_name', 'last_name', 'username')
+
+class GamerSerializer(serializer.ModelSerializer):
+    """JSON serializer for gamers"""
+    user = UserSerializer(many=False)
+
+    class Meta:
+        model = Gamer
+        fields = ('user', 'bio')
+
+class GameSerializer(serializers.ModelSerializer):
+    """JSON Serializer for games"""
+
+    class Meta:
+        model = Game
+        fields = ('label',)
+
+class EventSerializer(serializers.ModelSerializer):
+    """JSON serializer for events"""
+    game = GameSerializer(many=False)
+
+    class Meta:
+        model = Event
+        fields = ('id', 'game', 'description', 'date', 'time')
