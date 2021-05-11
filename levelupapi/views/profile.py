@@ -5,7 +5,7 @@ from rest_framework.decorators import action
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers
-from levelupapi.models import Event, Gamer
+from levelupapi.models import Event, Gamer, Game
 
 class Profile(ViewSet):
     """Gamer can see profile information"""
