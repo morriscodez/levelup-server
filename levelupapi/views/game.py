@@ -32,19 +32,12 @@ class Games(ViewSet):
 
     def retrieve(self, request, pk=None):
         
-        gamer = Gamer.objects.get(user=request.auth.user)
-        game = Game.objects.get(pk=pk)
-        
-        game.label = request.data["label"]
-        game.number_of_players["numberOfPlayers"]
-        game.skill_level["skillLevel"]
-        game.gamer = gamer
-
-        gametype = Game_Type.objects.get(pk=request.data["gameTypeId"])
-        game.game_type = gametype
-        game.save()
-
-        return Response({}, status=status.HTTP_204_NO_CONTENT)
+        try:
+            game = Game.objects.get(pk=pk)
+            serializer = GameSerializer(game, context={'request': request})
+            return Response(serializer.data)
+        except Exception as ex:
+            return HttpResponseServerError(ex)
 
     def destroy(self, request, pk=None):
 
