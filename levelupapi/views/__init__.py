@@ -3,3 +3,4 @@ from .auth import register_user
 from .gametype import GameTypes
 from .game import Games
 from .event import EventView
+from .profile import Profile
