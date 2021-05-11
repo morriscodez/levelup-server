@@ -17,12 +17,12 @@ class Profile(ViewSet):
             Response -- JSON representation of user info and events
         """
         gamer = Gamer.objects.get(user=request.auth.user)
-        events = Event.objects.filter(registration__gamer=gamer)
+        events = Event.objects.filter(attendees=gamer)
 
         events = EventSerializer(
             events, many=True, context={'request': request}
         )
-        gamer = GameSerializer(
+        gamer = GamerSerializer(
             gamer, many=False, context={'request': request}
         )
 
@@ -32,12 +32,13 @@ class Profile(ViewSet):
 
         return Response(profile)
 
-class UserSerializer(serializer.ModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     """JSON serializer for gamer's related Django user"""
     class Meta:
-        model = Userfields = ('first_name', 'last_name', 'username')
+        model = User
+        fields = ('first_name', 'last_name', 'username')
 
-class GamerSerializer(serializer.ModelSerializer):
+class GamerSerializer(serializers.ModelSerializer):
     """JSON serializer for gamers"""
     user = UserSerializer(many=False)
 
