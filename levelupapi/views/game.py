@@ -74,20 +74,21 @@ class Games(ViewSet):
         return Response(serializer.data)
 
 
-    def update(self, request, pk=None)
+    def update(self, request, pk=None):
         """Handle PUT requests for a game
 
         Returns:
             Response -- Empty body with 204 status code
         """
         gamer = Gamer.objects.get(user=request.auth.user)
+        game = Game.objects.get(pk=pk)
 
         game.label = request.data['label']
         game.number_of_players = request.data['numberOfPlayers']
         game.skill_level = request.data['skillLevel']
         game.gamer = gamer
 
-        gametype = GameType.objects.get(pk=request.data['gameTypeId'])
+        gametype = Game_Type.objects.get(pk=request.data['gameTypeId'])
         game.gametype = gametype
         game.save()
 
