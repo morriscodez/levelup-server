@@ -25,7 +25,7 @@ class GameTests(APITestCase):
         response = self.client.post(url, data, format='json')
 
         # Parse teh JSON in the response body
-        json_response = json.loads(response.contet)
+        json_response = json.loads(response.content)
 
         # Store the auth token
         self.token = json_response["token"]
@@ -49,8 +49,7 @@ class GameTests(APITestCase):
         data = {
             "gameTypeId": 1,
             "skillLevel": 5,
-            "title": "Clue",
-            "maker": "Milton Bradley",
+            "label": "Clue",
             "numberOfPlayers": 6,
         }
 
@@ -64,7 +63,7 @@ class GameTests(APITestCase):
         json_response = json.loads(response.content)
 
         # Assert that the properties on the created resource are correct
-        self.assertEqual(json_response["title"], "Clue")
-        self.assertEqual(json_response["maker"], "Milton Bradley")
+        self.assertEqual(json_response["label"], "Clue")
+        self.assertEqual(json_response["game_type"]["id"], 1)
         self.assertEqual(json_response["skill_level"], 5)
         self.assertEqual(json_response["number_of_players"], 6)
