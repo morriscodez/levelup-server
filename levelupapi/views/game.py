@@ -1,4 +1,4 @@
-# """View module for handling requests about games"""
+"""View module for handling requests about games"""
 from django.core.exceptions import NON_FIELD_ERRORS, ValidationError
 from rest_framework import status
 from django.http import HttpResponseServerError
@@ -45,7 +45,7 @@ class Games(ViewSet):
             game = Game.objects.get(pk=pk)
             game.delete()
 
-            return Response({}, status=status.status.HTTP_204_NO_CONTENT)
+            return Response({}, status=status.HTTP_204_NO_CONTENT)
 
         except Game.DoesNotExist as ex:
             return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
