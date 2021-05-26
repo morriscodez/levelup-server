@@ -78,7 +78,7 @@ class GameTests(APITestCase):
         game.game_type_id = 1
         game.skill_level = 5
         game.label = "Monopoly"
-        game.number_of_players
+        game.number_of_players = 6
 
         game.save()
 
@@ -92,8 +92,65 @@ class GameTests(APITestCase):
         json_response = json.loads(response.content)
 
         # Assert that the values are correct
-        self.assertEqual(json_response["label"], "Clue")
+        self.assertEqual(json_response["label"], "Monopoly")
         self.assertEqual(json_response["game_type"]["id"], 1)
         self.assertEqual(json_response["skill_level"], 5)
         self.assertEqual(json_response["number_of_players"], 6)
 
+    def test_change_game(self):
+        """
+        Ensure we can change an existing game.
+        """
+
+        game = Game()
+        game.game_type_id = 1
+        game.skill_level = 5
+        game.label = "Sorry"
+        game.number_of_players = 4
+        game.gamer_id = 1
+        game.save()
+
+        #Define new properties for game
+
+        data = {
+            "gameTypeId": 1,
+            "skillLevel": 2,
+            "label": "Sorry",
+            "numberOfPlayers": 4
+        }
+
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token)
+        response = self.client.put(f"/games/{game.id}", data, format="json")
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+        # Get game again to verify changes
+        response = self.client.get(f"/games/{game.id}")
+        json_response = json.loads(response.content)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        #Assert that the properties are correct
+        self.assertEqual(json_response["label"], "Sorry")
+        self.assertEqual(json_response["skill_level"], 2)
+        self.assertEqual(json_response["number_of_players"], 4)
+        self.assertEqual(json_response["game_type"]["id"], 1)
+
+    
+    def test_delete_game(self):
+        """
+        Ensure we can delete an existing game.
+        """
+        game = Game()
+        game.game_type_id = 1
+        game.skill_level = 5
+        game.label = "Sorry"
+        game.number_of_players = 4
+        game.gamer_id = 1
+        game.save()
+
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token)
+        response = self.client.delete(f"/games/{game.id}")
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+        # Get game again to verify changes
+        response = self.client.get(f"/games/{game.id}")
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
