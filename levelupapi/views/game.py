@@ -1,4 +1,4 @@
-# """View module for handling requests about games"""
+"""View module for handling requests about games"""
 from django.core.exceptions import NON_FIELD_ERRORS, ValidationError
 from rest_framework import status
 from django.http import HttpResponseServerError
@@ -25,7 +25,7 @@ class Games(ViewSet):
         try:
             game.save()
             serializer = GameSerializer(game, context={'request': request})
-            return Response(serializer.data)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
 
         except ValidationError as ex:
             return Response({"reason": ex.message}, status=status.HTTP_400_BAD_REQUEST)
@@ -36,6 +36,10 @@ class Games(ViewSet):
             game = Game.objects.get(pk=pk)
             serializer = GameSerializer(game, context={'request': request})
             return Response(serializer.data)
+        
+        except Game.DoesNotExist as ex:
+            return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
+        
         except Exception as ex:
             return HttpResponseServerError(ex)
 
@@ -45,7 +49,7 @@ class Games(ViewSet):
             game = Game.objects.get(pk=pk)
             game.delete()
 
-            return Response({}, status=status.status.HTTP_204_NO_CONTENT)
+            return Response({}, status=status.HTTP_204_NO_CONTENT)
 
         except Game.DoesNotExist as ex:
             return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
