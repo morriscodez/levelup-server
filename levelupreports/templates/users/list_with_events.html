@@ -7,14 +7,14 @@
     </head>
     
     <body>
-    <h1>User Games</h1>
+    <h1>User Events</h1>
 
-        {% for user in usergame_list %}
+        {% for user in userevent_list %}
             <h2>{{ user.full_name }}</h2>
             <ol>
-                {% for game in user.games %}
+                {% for event in user.events %}
                 <li>
-                    Title: {{ game.label }}
+                    Title: {{ event.name }}
                 </li>
                 {% endfor %}
             </ol>
