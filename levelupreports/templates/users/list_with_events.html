@@ -15,6 +15,13 @@
                 {% for event in user.events %}
                 <li>
                     Title: {{ event.name }}
+                    <br>
+                    Description: {{ event.description }}
+                    <br>
+                    Date: {{ event.date }}
+                    <br>
+                    Game: {{ event.game.label }}
+                    <hr>
                 </li>
                 {% endfor %}
             </ol>

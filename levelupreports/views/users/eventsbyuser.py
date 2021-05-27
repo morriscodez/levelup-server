@@ -50,6 +50,9 @@ def userevent_list(request):
             #                 "skill_level": 3,
             #                 "number_of_players": 4,
             #                 "gametype_id": 2
+            #                 "attendees": {
+
+            #                           }
             #             },
             #         ]
             #     }
@@ -65,11 +68,11 @@ def userevent_list(request):
                 event.description = row["description"]
                 event.address = row["address"]
                 event.game_id = row["game_id"]
-                # event.attendees = row["attendees"]
                 event.time = row["time"]
-
+                
                 # Store the user's id
                 uid = row["user_id"]
+
 
                 # If the user's id is already a key in the dictionary
                 if uid in events_by_user:
@@ -83,6 +86,7 @@ def userevent_list(request):
                     events_by_user[uid]["id"] = uid
                     events_by_user[uid]["full_name"] = row["full_name"]
                     events_by_user[uid]["events"] = [event]
+                    
         
         # Get only the values from the dictionary and create a list from them
         list_of_users_with_events = events_by_user.values()
