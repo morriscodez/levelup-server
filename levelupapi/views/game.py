@@ -4,12 +4,17 @@ from rest_framework import status
 from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
+from rest_framework.permissions import DjangoModelPermissions
 from rest_framework import serializers
 from rest_framework import status
 from levelupapi.models import Game, Game_Type, Gamer, game_type
 
 class Games(ViewSet):
 
+    permission_classes = [ DjangoModelPermissions ]
+    queryset = Game.objects.none()
+
+    
     def create(self, request):
 
         # gamer = Gamer.objects.get(user=request.auth.user)
